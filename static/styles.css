@@ -461,7 +461,7 @@ ul a {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  max-width: 74rem;
+  max-width: 92rem;
   margin: 0 auto;
   gap: 1rem;
 }
@@ -479,14 +479,18 @@ ul a {
 
 @media screen and (min-width: 50em) {
   .team-panel {
-    flex: 0 0 17rem;
-    width: 17rem;
+    /* Can shrink to make room, but never grows past 17rem — the wheel
+       panel below is the one that must keep its full size. */
+    flex: 1 1 17rem;
+    min-width: 12rem;
   }
 }
 
 .main-panel {
-  flex: 1 1 auto;
-  min-width: 0;
+  /* Fixed at its pre-three-column width so the wheel and the
+     Actions/Progress/Timing row never shrink; side panels flex instead. */
+  flex: 1 0 56rem;
+  min-width: 56rem;
 }
 
 #team-builder-form #fellow-list {
