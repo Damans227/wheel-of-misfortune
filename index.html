@@ -101,27 +101,6 @@
                 <button id="edit-fellows-btn" class="button" onClick="teamBuilder.showForm();">Edit
                     Availability</button>
             </div>
-
-            <hr class="mw3 bb bw1 b--black-10 mv3">
-            <h4 class="f4 center mw6">Custom Data</h4>&#9881;&#65039;
-            <div class="config-row">
-                <label class="config-label" for="incidents-upload">Incidents</label>
-                <input type="file" id="incidents-upload" accept="application/json"
-                    onchange="appConfig.handleUpload(this, appConfig.KEYS.incidents, appConfig.validateIncidents, document.getElementById('incidents-config-status'));">
-                <div id="incidents-config-status" class="config-status"></div>
-                <a href="#" class="config-reset"
-                    onclick="appConfig.resetToDefault(appConfig.KEYS.incidents); return false;">Reset to default</a>
-            </div>
-            <div class="config-row">
-                <label class="config-label" for="fellows-upload">Fellows</label>
-                <input type="file" id="fellows-upload" accept="application/json"
-                    onchange="appConfig.handleUpload(this, appConfig.KEYS.fellows, appConfig.validateFellows, document.getElementById('fellows-config-status'));">
-                <div id="fellows-config-status" class="config-status"></div>
-                <a href="#" class="config-reset"
-                    onclick="appConfig.resetToDefault(appConfig.KEYS.fellows); return false;">Reset to default</a>
-            </div>
-            <p class="config-hint">Uploads are saved in this browser only &mdash; they won't sync to other
-                devices, and Ink story files referenced by <code>inkstory</code> must already exist on the site.</p>
         </aside>
 
         <div class="main-panel">
@@ -204,6 +183,29 @@
                 </div>
             </article>
         </div>
+
+        <aside class="team-panel bg-white br3 mv4 ba b--black-10 pa3 tc">
+            <h4 class="f4 center mw6">Custom Data</h4>&#9881;&#65039;
+            <hr class="mw3 bb bw1 b--black-10">
+            <div class="config-row">
+                <label class="config-label" for="incidents-upload">Incidents</label>
+                <input type="file" id="incidents-upload" accept="application/json"
+                    onchange="appConfig.handleUpload(this, appConfig.KEYS.incidents, appConfig.validateIncidents, document.getElementById('incidents-config-status'));">
+                <div id="incidents-config-status" class="config-status"></div>
+                <a href="#" class="config-reset"
+                    onclick="appConfig.resetToDefault(appConfig.KEYS.incidents); return false;">Reset to default</a>
+            </div>
+            <div class="config-row">
+                <label class="config-label" for="fellows-upload">Fellows</label>
+                <input type="file" id="fellows-upload" accept="application/json"
+                    onchange="appConfig.handleUpload(this, appConfig.KEYS.fellows, appConfig.validateFellows, document.getElementById('fellows-config-status'));">
+                <div id="fellows-config-status" class="config-status"></div>
+                <a href="#" class="config-reset"
+                    onclick="appConfig.resetToDefault(appConfig.KEYS.fellows); return false;">Reset to default</a>
+            </div>
+            <p class="config-hint">Uploads are saved in this browser only &mdash; they won't sync to other
+                devices, and Ink story files referenced by <code>inkstory</code> must already exist on the site.</p>
+        </aside>
     </div>
 
     <script src="static/teams.js?v=3"></script>
