@@ -1,32 +1,66 @@
 # Wheel of Misfortune
+
 **Wheel of Misfortune** is a game that aims to build confidence in on-call engineers via simulated outage scenarios.
 With the game, you practice problem debugging under stress, understanding the incident management protocol,
 and effective communication with other engineers of your team and organization.
-It is a great way to train new hires, interns, and seasoned engineers to become well-rounded on-call engineers.
+
+This fork is set up for the **MLH Fellowship's Meta Production Engineering track**. The incidents, terminology,
+and visual theme are adapted for that cohort, but the game itself works the same way it always has, and the
+mechanics below still apply if you want to run it for any other group.
 
 The game is inspired by the [Site Reliability Engineering](https://landing.google.com/sre/book/chapters/accelerating-sre-on-call.html#xref_training_disaster-rpg) book.
 
-[Demo website](https://dastergon.gr/wheel-of-misfortune)
+## Running it
+
+This is a static site, no build step. From the project root:
+
+```
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000` in your browser.
 
 ## Instructions
+
 ### Terminology
 
 *   **Scenario**: A past or fictional incident case.
 *   **Game Master**: The host-coordinator of the session.
-*   **Volunteer**: The trainee on-call engineer.
+*   **Volunteer**: The Fellow acting as trainee on-call engineer.
 
-Feel free to fork the [repository](https://github.com/dastergon/wheel-of-misfortune) or [download](https://github.com/dastergon/wheel-of-misfortune/releases) the stable release.
-Copy the [general\_incidents.json.sample](incidents/general\_incidents.json.sample) file to *general_incidents.json*, inside the [incidents/](incidents/) directory, and insert your incident scenarios into it.
+Each scenario is worked through four stages, in order:
 
-To run the game locally on your computer please navigate the the main directory of the downloaded project i.e. `wheel-of-misfortune-5.0/` and from here start a web server i.e. `python -m SimpleHTTPServer` after that open the http://localhost:8000 using your web browser.
+*   **Acknowledge**: what is broken and who does it affect.
+*   **Triage**: how bad it is. Impact and severity, not cause.
+*   **Mitigate**: what stops the harm right now, even without knowing the cause.
+*   **Resolve**: the real fix, so it does not come back on its own.
 
-The file has the following format:
-- **ID**: the unique ID of the outage (you can just auto-increment).
-- **title**: the title of the incident.
-- **scenario**: the description of the incident. It is useful to include URLs from monitoring systems, dashboards, time-series databases and playbooks.
+The Game Master decides when a team has earned the next stage. See
+[game-master-sheet.md](game-master-sheet.md) for the answer key, hints, and probing questions used to run
+sessions for this cohort &mdash; it is intentionally not linked from the site itself, since it is meant for
+facilitators, not Fellows.
+
+### Incident scenarios
+
+Insert your incident scenarios into [incidents/general_incidents.json](incidents/general_incidents.json). Copy
+[general\_incidents.json.sample](incidents/general\_incidents.json.sample) as a starting point if you're setting
+this up from scratch. The file has the following format:
+
+- **id**: the unique ID of the outage (you can just auto-increment).
+- **title**: the title of the incident, shown on the wheel &mdash; keep it short so it fits on a slice.
+- **scenario**: the description of the incident, as HTML. It is useful to include URLs from monitoring
+  systems, dashboards, time-series databases and playbooks.
 - **inkstory**: the path to an [Ink](https://www.inklestudios.com/ink/) story file in JSON format.
 
 You can also use [general\_incidents.jsonnet](incidents/general_incidents.jsonnet.sample) as an example, in case you want to generate your incident scenarios using [Jsonnet](https://jsonnet.org/).
+
+### Team builder
+
+The left-hand panel lets the Game Master check off which Fellows are available and generate four teams, one
+per stage (Acknowledge / Triage / Mitigate / Resolve). Names are pulled from [fellows.json](fellows.json) &mdash;
+edit that file to update the roster. Teams are split as evenly as possible; Acknowledge is the team most
+likely to run a member short when the count doesn't divide evenly by four. Team generation is independent of
+the wheel: spinning does not reset or regenerate teams, and generating teams does not spin the wheel.
 
 ### Ink
 [Ink](https://github.com/inkle/ink) is a scripting language for writing interactive narrative stories. It enables us to write interactive incident response narratives for team or individual trainings. You can use [Inky](https://github.com/inkle/inky) to write an interactive narrative for an incident and then export the story as JSON. Then, you can store the story file inside the [incidents/](incidents/) folder and associate the Ink story file with an Incident scenario using the **inkstory** key. You can read an example incident narrative [here](https://github.com/dastergon/wheel-of-misfortune/tree/master/incidents/redis-story.json).
@@ -34,13 +68,13 @@ You can also use [general\_incidents.jsonnet](incidents/general_incidents.jsonne
 ### Role Playing
 #### Game Master
 
-1.  Choose a volunteer to be the primary on-call engineer in front of the group.
+1.  Choose a volunteer (Fellow) to be the primary on-call engineer in front of the group.
 2.  Find a balance between the volunteer's experience and the incident's difficulty.
-3.  Assist volunteer by answering questions that may arise in each theoretical action or dashboard observation.
-  * Engage with the rest of the team and ask for different ways to debug the problem following the volunteer's explanation.
-  * Team members may be made available over time for assistance in various topics.
-5.  At the end, have a debrief on the learnings of the session.
-
+3.  Assist the volunteer by answering questions that may arise in each theoretical action or dashboard observation.
+    * Engage with the rest of the team and ask for different ways to debug the problem following the volunteer's explanation.
+    * Team members may be made available over time for assistance in various topics.
+    * Approve or send back each of the four stages as the group works through them &mdash; see [game-master-sheet.md](game-master-sheet.md).
+4.  At the end, have a debrief on the learnings of the session.
 
 #### Volunteer
 
@@ -65,3 +99,9 @@ The Wheel of Misfortune was established as a practice in [Open Practice Library]
 *   [Postmortem Templates](https://github.com/dastergon/postmortem-templates)
 *   [Postmortems Metadata Index](https://postmortems.app)
 *   [Site Reliability Engineering Resources](https://github.com/dastergon/awesome-sre)
+
+### Credit
+
+This is a fork of [dastergon/wheel-of-misfortune](https://github.com/dastergon/wheel-of-misfortune) by
+Pavlos Ratis, re-themed and extended for the MLH Fellowship. See [LICENSE](LICENSE) for the original MIT
+license.
