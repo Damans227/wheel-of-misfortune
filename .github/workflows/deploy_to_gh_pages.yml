@@ -26,7 +26,7 @@ jobs:
       - name: Copy needed files and dirs into the public/ directory
         run: |
           mkdir -p public/incidents
-          for source in *.html static; do cp -r $source public/; done
+          for source in *.html static fellows.json; do cp -r $source public/; done
           ls incidents/ | while read i; do cp incidents/$i public/incidents/${i/.sample/}; done
       - name: Setup Pages
         uses: actions/configure-pages@v5
