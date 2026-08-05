@@ -24,7 +24,7 @@ var padding = { top: 20, right: 40, bottom: 0, left: 0 },
     picked = 100000,
     oldpick = [];
 
-d3.json("./incidents/general_incidents.json", function (error, data) {
+appConfig.loadIncidents(function (error, data) {
     if (error) throw error;
     var svg = d3.select("#wheel")
         .append("svg")

@@ -10,7 +10,7 @@
     <meta name="author" content="Pavlos Ratis">
     <meta name="description" content="Incident response training for the MLH Fellowship Meta Production Engineering track.">
     <meta name="keywords" content="Incident Response,Training,Production Engineering,SRE,Oncall,MLH Fellowship">
-    <link rel="stylesheet" href="static/styles.css?v=5">
+    <link rel="stylesheet" href="static/styles.css?v=6">
 
     <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
@@ -101,6 +101,27 @@
                 <button id="edit-fellows-btn" class="button" onClick="teamBuilder.showForm();">Edit
                     Availability</button>
             </div>
+
+            <hr class="mw3 bb bw1 b--black-10 mv3">
+            <h4 class="f4 center mw6">Custom Data</h4>&#9881;&#65039;
+            <div class="config-row">
+                <label class="config-label" for="incidents-upload">Incidents</label>
+                <input type="file" id="incidents-upload" accept="application/json"
+                    onchange="appConfig.handleUpload(this, appConfig.KEYS.incidents, appConfig.validateIncidents, document.getElementById('incidents-config-status'));">
+                <div id="incidents-config-status" class="config-status"></div>
+                <a href="#" class="config-reset"
+                    onclick="appConfig.resetToDefault(appConfig.KEYS.incidents); return false;">Reset to default</a>
+            </div>
+            <div class="config-row">
+                <label class="config-label" for="fellows-upload">Fellows</label>
+                <input type="file" id="fellows-upload" accept="application/json"
+                    onchange="appConfig.handleUpload(this, appConfig.KEYS.fellows, appConfig.validateFellows, document.getElementById('fellows-config-status'));">
+                <div id="fellows-config-status" class="config-status"></div>
+                <a href="#" class="config-reset"
+                    onclick="appConfig.resetToDefault(appConfig.KEYS.fellows); return false;">Reset to default</a>
+            </div>
+            <p class="config-hint">Uploads are saved in this browser only &mdash; they won't sync to other
+                devices, and Ink story files referenced by <code>inkstory</code> must already exist on the site.</p>
         </aside>
 
         <div class="main-panel">
@@ -110,7 +131,8 @@
                     <hr class="mw3 bb bw1 b--black-10">
                     <div id="wheel"></div>
                     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-                    <script src="static/wheel.js?v=5"></script>
+                    <script src="static/config.js?v=1"></script>
+                    <script src="static/wheel.js?v=6"></script>
                 </div>
                 <div class="fl w-100 w-50-ns tc pa3">
                     <article id="incident">
@@ -184,7 +206,7 @@
         </div>
     </div>
 
-    <script src="static/teams.js?v=2"></script>
+    <script src="static/teams.js?v=3"></script>
 
     <footer class="pv4 ph4 tc">
         <small class="f4 db">MLH Fellowship &middot; Meta Production Engineering Track</small>

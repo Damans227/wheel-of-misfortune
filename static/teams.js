@@ -83,7 +83,7 @@ var teamBuilder = (function () {
         document.getElementById("team-builder-form").style.display = "block";
     }
 
-    d3.json("./fellows.json", function (error, fellows) {
+    appConfig.loadFellows(function (error, fellows) {
         if (error) {
             console.error("Could not load fellows.json", error);
             return;

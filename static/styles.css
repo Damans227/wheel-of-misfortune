@@ -530,6 +530,57 @@ ul a {
   background-color: #e7edf7;
   color: #1c3f72;
 }
+
+.config-row {
+  text-align: left;
+  margin-bottom: .75rem;
+}
+
+.config-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: bold;
+  color: #1c3f72;
+  margin-bottom: .25rem;
+}
+
+.config-row input[type="file"] {
+  width: 100%;
+  font-size: .75rem;
+  margin-bottom: .25rem;
+}
+
+.config-status {
+  font-size: .75rem;
+  margin-bottom: .15rem;
+}
+
+.config-default {
+  color: #767676;
+}
+
+.config-custom {
+  color: #c97f0a;
+  font-weight: bold;
+}
+
+.config-error {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.config-reset {
+  font-size: .75rem;
+  color: #1c3f72;
+}
+
+.config-hint {
+  font-size: .7rem;
+  color: #767676;
+  text-align: left;
+  line-height: 1.4;
+}
+
 .flex {
   display: flex;
 }
