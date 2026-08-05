@@ -2,8 +2,17 @@
  * http://bl.ocks.org/jrue/a2aaf36b3c096925ccbf */
 
 function custom_colors(n) {
-    var colors = ["#388E3C", "#1976D2", "#D32F2F", "#FFA000", "#388E3C", "#990099", "#0099c6", "#C2185B", "#81C784", "#D32F2F", "#1976D2", "#994499", "#4DD0E1", "#AED581", "#536DFE", "#FBC02D", "#C62828", "#AB47BC", "#66BB6A", "#90A4AE", "#0D47A1"];
+    var colors = ["#1c3f72", "#f5a623", "#2c5aa0", "#e8940f", "#16305c", "#f7c565", "#3a6bb5", "#c97f0a"];
     return colors[n % colors.length];
+}
+
+// pick readable label text (navy or white) based on how light the slice color is
+function readable_text_color(hex) {
+    var r = parseInt(hex.substr(1, 2), 16),
+        g = parseInt(hex.substr(3, 2), 16),
+        b = parseInt(hex.substr(5, 2), 16),
+        luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.6 ? "#1c3f72" : "#ffffff";
 }
 
 var padding = { top: 20, right: 40, bottom: 0, left: 0 },
@@ -53,6 +62,10 @@ d3.json("./incidents/general_incidents.json", function (error, data) {
         return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius - 10) + ")";
     })
         .attr("text-anchor", "end")
+        .attr("font-family", "'JetBrains Mono', 'SFMono-Regular', Consolas, monospace")
+        .attr("font-weight", "600")
+        .attr("font-size", "14px")
+        .style("fill", function (d, i) { return readable_text_color(custom_colors(i)); })
         .text(function (d, i) {
             return data[i].title;
         });
@@ -89,6 +102,7 @@ d3.json("./incidents/general_incidents.json", function (error, data) {
                 //mark incident as seen
                 d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                     .attr("fill", "#111");
+                resetIncidentActions();
                 // if Ink story is provided, override the actual scenario.
                 if (data[picked].inkstory != undefined) {
                     //populate incident
