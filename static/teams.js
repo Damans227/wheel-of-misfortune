@@ -17,7 +17,7 @@ var teamBuilder = (function () {
             li.className = "pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30";
             li.innerHTML =
                 '<input type="checkbox" class="magic-checkbox" name="fellow" value="' + name + '" id="' + id + '">' +
-                '<label for="' + id + '">' + name + "</label>";
+                '<label for="' + id + '" title="' + name + '">' + name + "</label>";
             list.appendChild(li);
         });
     }

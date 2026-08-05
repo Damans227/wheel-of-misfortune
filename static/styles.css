@@ -490,9 +490,13 @@ ul a {
 }
 
 #team-builder-form #fellow-list {
-  max-height: 20rem;
-  overflow-y: auto;
   margin-bottom: 1rem;
+}
+
+#fellow-list label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #generate-teams-btn {
