@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "title": "Portfolio site returns 502",
+        "scenario": "<p><strong>PAGE:</strong> the portfolio site has been returning 502 Bad Gateway for 20 minutes.</p><p><strong>What you can see</strong></p><ul><li>Nginx is running</li><li>SSH to the droplet works fine</li><li>A Fellow deployed &quot;just a CSS change&quot; about half an hour ago</li><li>There is no monitoring dashboard</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 2,
+        "title": "Out of disk on the droplet",
+        "scenario": "<p><strong>PAGE:</strong> the VPS is at 100% disk. Every write returns a 500 and the database has stopped accepting writes.</p><p><strong>What you can see</strong></p><ul><li>SSH still works</li><li>25GB droplet, same app running for six weeks</li><li>No traffic growth</li><li>No deploy in four days</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 3,
+        "title": "The backup that never ran",
+        "scenario": "<p><strong>SITUATION:</strong> a Fellow dropped a table and needs last week's database back.</p><p><strong>What you can see</strong></p><ul><li>backup.sh was added to cron in week 3</li><li>The backup directory holds exactly one file, dated the day it was set up</li><li>Cron is running and other jobs on the box fire normally</li><li>The script works when you run it by hand</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 4,
+        "title": "Database refusing connections",
+        "scenario": "<p><strong>PAGE:</strong> 40% of requests are failing. Logs show <em>FATAL: sorry, too many clients already</em> from Postgres.</p><p><strong>What you can see</strong></p><ul><li>Works fine right after a restart, then degrades over about 30 minutes</li><li>CPU and memory are normal</li><li>Traffic is flat</li><li>A new /projects endpoint shipped yesterday</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 5,
+        "title": "Unreachable from the internet",
+        "scenario": "<p><strong>SITUATION:</strong> a Fellow has deployed their Flask app to the droplet. It will not load for anyone.</p><p><strong>What you can see</strong></p><ul><li>SSH'd into the droplet, <em>curl localhost:5000</em> returns the page correctly</li><li>From your laptop, the browser hangs and eventually times out, with no error page and no refused connection</li><li>The app process is running and its logs show no requests arriving from outside</li><li>SSH to the same droplet works fine from your laptop</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 6,
+        "title": "Container restart loop",
+        "scenario": "<p><strong>SITUATION:</strong> after a docker-compose.yml change, <em>docker compose up -d</em> reports success but the site is unreachable.</p><p><strong>What you can see</strong></p><ul><li>docker ps shows the web container flipping between &quot;Up 3 seconds&quot; and &quot;Restarting&quot;</li><li>The database container is stable</li><li>The only change was &quot;moving some environment variables around&quot;</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 7,
+        "title": "Deploy that didn't deploy",
+        "scenario": "<p><strong>SITUATION:</strong> a fix merged to main two hours ago is still not live.</p><p><strong>What you can see</strong></p><ul><li>The workflow run is green, including build and push</li><li>The Fellow has re-run it twice and hard-refreshed</li><li>On the droplet, docker ps shows the web container with nine days of uptime</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    },
+    {
+        "id": 8,
+        "title": "The app that dies every night",
+        "scenario": "<p><strong>SITUATION:</strong> the app becomes unreachable around 4am every night and stays down until someone restarts it.</p><p><strong>What you can see</strong></p><ul><li>No deploy at that time, and it runs fine all day</li><li>The droplet stays up, and only the app process is gone</li><li>The Fellow has been restarting it manually and calls it &quot;a weird Docker thing&quot;</li></ul><p><strong>Work through</strong></p><ol><li><strong>Acknowledge</strong>: What is broken and who does it affect?</li><li><strong>Triage</strong>: How bad is it? Talk impact and severity, not cause.</li><li><strong>Mitigate</strong>: What stops the harm right now, even without knowing the cause?</li><li><strong>Resolve</strong>: What is the real fix, so it does not come back on its own?</li></ol>"
+    }
+]

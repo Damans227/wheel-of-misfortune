@@ -1,2 +1,1 @@
-incidents/*.json
-incidents/*.jsonnet
+.DS_Store

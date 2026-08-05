@@ -27,7 +27,13 @@ jobs:
         run: |
           mkdir -p public/incidents
           for source in *.html static fellows.json; do cp -r $source public/; done
-          ls incidents/ | while read i; do cp incidents/$i public/incidents/${i/.sample/}; done
+          # copy .sample fallbacks first, then real files, so a real file
+          # always wins over its .sample default regardless of name sort order
+          for f in incidents/*.sample; do [ -e "$f" ] && cp "$f" "public/incidents/$(basename "$f" .sample)"; done
+          for f in incidents/*; do
+            case "$f" in *.sample) continue ;; esac
+            cp "$f" "public/incidents/$(basename "$f")"
+          done
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
