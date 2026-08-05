@@ -10,7 +10,7 @@
     <meta name="author" content="Pavlos Ratis">
     <meta name="description" content="Incident response training for the MLH Fellowship Meta Production Engineering track.">
     <meta name="keywords" content="Incident Response,Training,Production Engineering,SRE,Oncall,MLH Fellowship">
-    <link rel="stylesheet" href="static/styles.css?v=3">
+    <link rel="stylesheet" href="static/styles.css?v=4">
 
     <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
@@ -87,77 +87,104 @@
         <div class="ml3"><a class="navy" href="instructions.html">Instructions</a></div>
     </div>
 
-    <article class="cf mw mw-h center bg-white br3 mv4 ba b--black-10">
-        <div class="fl w-100 w-50-ns tc pa3">
-            <h4 class="f4 center mw6">Spin the Wheel!</h4> &#128223;
+    <div class="team-layout ph3 ph4-ns">
+        <aside class="team-panel bg-white br3 mv4 ba b--black-10 pa3 tc">
+            <h4 class="f4 center mw6">Build Teams</h4>&#129309;
             <hr class="mw3 bb bw1 b--black-10">
-            <div id="wheel"></div>
-            <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-            <script src="static/wheel.js?v=3"></script>
-        </div>
-        <div class="fl w-100 w-50-ns tc pa3">
-            <article id="incident">
-                <p></p>
-            </article>
-        </div>
-    </article>
-
-    <article class="cf">
-        <div class="mw mw-h center">
-            <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
-                <ul class="list">
-                    <h4 class="f4 center mw6">Incident Actions</h4> &#128203;
-                    <hr class="mw3 bb bw1 b--black-10">
-                    <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
-                        <input type="checkbox" class="magic-checkbox" name="progress" value="first" id="first"
-                            onClick="stopwatch.lap();changeProgress(this, 0, 25);unlockCheckbox(this);" />
-                        <label for="first">ACKNOWLEDGE</label>
-                    </li>
-                    <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30"><input type="checkbox"
-                            class="magic-checkbox" name="progress" value="second" id="second"
-                            onClick="stopwatch.lap();changeProgress(this, 25, 50);unlockCheckbox(this);" disabled>
-                        <label for="second">TRIAGE</label></li>
-                    <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
-                        <input type="checkbox" class="magic-checkbox" name="progress" value="third" id="third"
-                            onClick="stopwatch.lap();changeProgress(this, 50, 75);unlockCheckbox(this);" disabled>
-                        <label for="third">MITIGATE</label></li>
-                    <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
-                        <input type="checkbox" class="magic-checkbox" name="progress" value="fourth" id="fourth"
-                            onClick="stopwatch.lap();stopwatch.stop();changeProgress(this, 75, 100);" disabled>
-                        <label for="fourth">RESOLVE</label></li>
-                </ul>
+            <div id="team-builder-form">
+                <ul id="fellow-list" class="list tl"></ul>
+                <button id="generate-teams-btn" class="button" onClick="teamBuilder.generate();">Generate
+                    Teams</button>
             </div>
-            <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
-                <h4 class="f4 center mw6">Incident Progress</h4>&#128202;
-                <hr class="mw3 bb bw1 b--black-10">
-                <div class="sz pa3">
-                    <div id="progress" class="pie-wrapper">
-                        <span id="percent" class="label">0<span class="smaller">%</span></span>
-                        <div class="pie">
-                            <div class="left-side half-circle"></div>
-                            <div class="right-side half-circle"></div>
+            <div id="team-results" style="display:none;">
+                <div id="team-results-list"></div>
+                <button id="edit-fellows-btn" class="button" onClick="teamBuilder.showForm();">Edit
+                    Availability</button>
+            </div>
+        </aside>
+
+        <div class="main-panel">
+            <article class="cf mw mw-h center bg-white br3 mv4 ba b--black-10">
+                <div class="fl w-100 w-50-ns tc pa3">
+                    <h4 class="f4 center mw6">Spin the Wheel!</h4> &#128223;
+                    <hr class="mw3 bb bw1 b--black-10">
+                    <div id="wheel"></div>
+                    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+                    <script src="static/wheel.js?v=5"></script>
+                </div>
+                <div class="fl w-100 w-50-ns tc pa3">
+                    <article id="incident">
+                        <p></p>
+                    </article>
+                </div>
+            </article>
+
+            <article class="cf">
+                <div class="mw mw-h center">
+                    <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
+                        <ul class="list">
+                            <h4 class="f4 center mw6">Incident Actions</h4> &#128203;
+                            <hr class="mw3 bb bw1 b--black-10">
+                            <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
+                                <input type="checkbox" class="magic-checkbox" name="progress" value="first"
+                                    id="first"
+                                    onClick="stopwatch.lap();changeProgress(this, 0, 25);unlockCheckbox(this);" />
+                                <label for="first">ACKNOWLEDGE</label>
+                            </li>
+                            <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30"><input type="checkbox"
+                                    class="magic-checkbox" name="progress" value="second" id="second"
+                                    onClick="stopwatch.lap();changeProgress(this, 25, 50);unlockCheckbox(this);"
+                                    disabled>
+                                <label for="second">TRIAGE</label></li>
+                            <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
+                                <input type="checkbox" class="magic-checkbox" name="progress" value="third"
+                                    id="third"
+                                    onClick="stopwatch.lap();changeProgress(this, 50, 75);unlockCheckbox(this);"
+                                    disabled>
+                                <label for="third">MITIGATE</label></li>
+                            <li class="pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
+                                <input type="checkbox" class="magic-checkbox" name="progress" value="fourth"
+                                    id="fourth"
+                                    onClick="stopwatch.lap();stopwatch.stop();changeProgress(this, 75, 100);"
+                                    disabled>
+                                <label for="fourth">RESOLVE</label></li>
+                        </ul>
+                    </div>
+                    <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
+                        <h4 class="f4 center mw6">Incident Progress</h4>&#128202;
+                        <hr class="mw3 bb bw1 b--black-10">
+                        <div class="sz pa3">
+                            <div id="progress" class="pie-wrapper">
+                                <span id="percent" class="label">0<span class="smaller">%</span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                                <div class="shadow"></div>
+                            </div>
                         </div>
-                        <div class="shadow"></div>
+                    </div>
+                    <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
+                        <div class="timing">
+                            <h4 class="f4 center mw6">Timing Controls</h4>&#9203;
+                            <hr class="mw3 bb bw1 b--black-10">
+                            <div class="stopwatch pa3"></div>
+                            <button id="start" class="button" onClick="stopwatch.start();changeControls();">▶</button>
+                            <button id="restart" class="button"
+                                onClick="stopwatch.restart();stopwatch.clear();changeControls();">↻</button>
+                            <button id="lap" class="button" onClick="stopwatch.lap();">Lap</button>
+                            <ul class="results"></ul>
+                            <script src="static/stopwatch.js"></script>
+                            <script src="static/ink.js"></script>
+                            <script src="static/mainink.js"></script>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="fl w-100 w-30-ns tc center bg-white br3 pa3 mv3 ba b--black-10 mbr">
-                <div class="timing">
-                    <h4 class="f4 center mw6">Timing Controls</h4>&#9203;
-                    <hr class="mw3 bb bw1 b--black-10">
-                    <div class="stopwatch pa3"></div>
-                    <button id="start" class="button" onClick="stopwatch.start();changeControls();">▶</button>
-                    <button id="restart" class="button"
-                        onClick="stopwatch.restart();stopwatch.clear();changeControls();">↻</button>
-                    <button id="lap" class="button" onClick="stopwatch.lap();">Lap</button>
-                    <ul class="results"></ul>
-                    <script src="static/stopwatch.js"></script>
-                    <script src="static/ink.js"></script>
-                    <script src="static/mainink.js"></script>
-                </div>
-            </div>
+            </article>
         </div>
-    </article>
+    </div>
+
+    <script src="static/teams.js?v=1"></script>
 
     <footer class="pv4 ph4 tc">
         <small class="f4 db">MLH Fellowship &middot; Meta Production Engineering Track</small>

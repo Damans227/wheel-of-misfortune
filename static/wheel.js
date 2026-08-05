@@ -68,6 +68,17 @@ d3.json("./incidents/general_incidents.json", function (error, data) {
         .style("fill", function (d, i) { return readable_text_color(custom_colors(i)); })
         .text(function (d, i) {
             return data[i].title;
+        })
+        .each(function () {
+            // keep labels from running under the SPIN button: compress
+            // (rather than overflow) anything longer than the safe radius.
+            var maxLength = r - 45,
+                node = this,
+                textLength = node.getComputedTextLength();
+            if (textLength > maxLength) {
+                node.setAttribute("textLength", maxLength);
+                node.setAttribute("lengthAdjust", "spacingAndGlyphs");
+            }
         });
     container.on("click", spin);
 
