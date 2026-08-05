@@ -10,6 +10,8 @@ mechanics below still apply if you want to run it for any other group.
 
 The game is inspired by the [Site Reliability Engineering](https://landing.google.com/sre/book/chapters/accelerating-sre-on-call.html#xref_training_disaster-rpg) book.
 
+![Wheel of Misfortune, showing the team builder, incident wheel, and stage checklist](static/screenshot.png)
+
 ## Running it
 
 This is a static site, no build step. From the project root:
